@@ -64,11 +64,22 @@ header img {
     height: 100%;
 }
 
+#logo {
+    z-index: -1;
+    width: 100px;
+    height: 100px;
+    max-height: 110%;
+    position: absolute;
+    top: -10%;
+    transform: translate(-50%, 0);
+}
+
 .headerbuffer {
     height: 7em;
 }
 
 
+/* content */
 section{
     margin-top: 5%;
     margin-left: 20%;
