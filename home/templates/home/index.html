@@ -1,0 +1,124 @@
+{% load static %}
+
+<html>
+
+    <head>
+
+        <!-- load google fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@400;700&family=Kelly+Slab&family=Nixie+One&family=Rye&family=Special+Elite&family=UnifrakturMaguntia&display=swap" rel="stylesheet"> 
+
+        <link rel="stylesheet" href="{% static 'home/style.css' %}"/>
+        <link rel="stylesheet" href="{% static 'game/style.css' %}"/>
+        <link rel="stylesheet" href="{% static 'home/decor/decor.css' %}"/>
+
+        <script src="{% static 'home/decor/decor.js' %}"></script>
+
+    </head>
+
+    <body>
+
+        <!-- the header -->
+        <header>
+            <div class="zoom holoblue">
+
+                <!-- corner decor -->
+                <svg class="cornerupper cornerleft">
+                    <g transform="scale(2,0.5)" >
+                        {% include 'home/svg/corner.html' %}
+                    </g>
+                </svg>
+
+                <svg class="cornerupper cornerright">
+                    <g transform="scale(-2,0.5) translate(-150,0)" >
+                        {% include 'home/svg/corner.html' %}
+                    </g>
+                </svg>
+
+                <!-- the actual header stuff -->
+                <h1>The Eleven Systems</h1>
+                <h3>Worlds of Houses and their Vices</h3>
+                <img src="{% static 'home/img/MaliitusMoth.png' %}"/>
+            </div>
+        </header>
+
+        <div class="headerbuffer"></div>
+
+        <!-- side box -->
+        <div class="expandbox sidebox holoblue">
+            <div class="expandbutton">
+                <svg height="25" width="25">
+                    <g transform="scale(0.25,0.25)" >
+                        {% include 'home/svg/star.html' %}
+                    </g>
+                </svg>
+            </div>
+            <div class="expanded menu">
+                <a>Menu</a>
+                <a>Encyclopedia</a>
+                <a>Options</a>
+                <a>Engage</a>
+            </div>
+        </div>
+
+        <!-- content -->
+        <div class="content">
+            <section>
+                <div class="zoom holoblue">
+
+                    <h2>Introductory Affairs</h2>
+
+                    <p> This is the Eleven Systems! Welcome to the year 41 AEH, in a star cluster far from Ancient Earth. 
+                    I hope you like your stay. </p>
+                    <p> This a is a time and a place dominated by crime. Governments and their laws wain and fight to maintain
+                    relivancy, while star-spanning crime Houses rule every fascet of live available in their sprawling reach.</p>
+
+                    <!-- corner decal -->
+                    <svg class="cornerlower cornerright" height="100" width="100">
+                        <g transform="scale(-1,-1) translate(-100, -100)" >
+                            {% include 'home/svg/corner.html' %}
+                        </g>
+                    </svg>
+                </div>
+            </section>
+
+
+            <!-- choices -->
+            <section>
+                <a class="option zoom holoblue">
+                    <strong>1</strong>
+                    <svg height="20" width="20">
+                        <g transform="scale(0.2,0.2)" >
+                            {% include 'home/svg/arrow.html' %}
+                        </g>
+                    </svg>
+                    Join a House; Swear your oath to and live your life for House, Vessel, and Vice!
+                </a>
+                <a class="option zoom holoblue">
+                    <strong>2</strong>
+                    <svg height="20" width="20">
+                        <g transform="scale(0.2,0.2)" >
+                            {% include 'home/svg/arrow.html' %}
+                        </g>
+                    </svg>
+                    Join the Navosc! Serve justice, prosperity, the Senate, and her allies!
+                </a>
+            </section>
+
+        </div>
+
+        <!-- the moving "status" bar at the bottom -->
+        <div class="decorbottom">
+            <div class="decorarea holoblue">
+                <div class="decorloadarea">
+                    <div class="decorloadbar">
+                    </div>
+                </div>
+                <span>Net</span>
+            </div>
+        </div>
+
+
+    </body>
+
+</html>

@@ -1,0 +1,234 @@
+/*
+Available google fonts:
+    font-family: 'Cherry Swash', cursive;
+
+    font-family: 'Kelly Slab', cursive; /* sci-fi serif 
+
+    font-family: 'Nixie One', cursive;
+
+    font-family: 'Rye', cursive;
+
+    font-family: 'Special Elite', cursive;
+
+    font-family: 'UnifrakturMaguntia', cursive; /* gothic text
+*/
+
+@keyframes backgroundScroll {
+    0%   {background-position: 0 0;}
+    25%  {background-position: -100px -300px}
+    50%  {background-position: -400px 0;}
+    75%  {background-position: 50px 200px}
+    100% {background-position: 0 0;}
+}
+
+body {
+    margin: 0px;
+    background: url('./img/starfield.png') repeat;
+    background-size: cover;
+    /*
+    background-position: center;
+    background-attachment: fixed;
+    */
+
+    font-family: 'Kelly Slab', cursive; /* sci-fi serif */
+
+    animation: backgroundScroll 160s infinite linear;
+}
+
+/* header */
+header {
+    position: fixed;
+    top: 2%;
+    left: 2%;
+    width: 96%;
+
+    text-align: center;
+}
+
+h1, h2 {
+    font-family: 'UnifrakturMaguntia', cursive;
+}
+
+header h1, header h3 {
+    margin: 8px;
+}
+
+header h3 {
+    opacity: 0.75;
+}
+
+header img {
+    position: absolute;
+    top: 24px;
+    right: 32px;
+    height: 100%;
+}
+
+.headerbuffer {
+    height: 7em;
+}
+
+
+section{
+    margin-top: 5%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+section p, section h2{
+    padding: 8px 32px;
+}
+
+p{
+    font-size: 1.1em;
+    line-height: 1.5em;
+}
+
+p::first-letter{
+    font-family: 'UnifrakturMaguntia', cursive;
+    font-size: 1.2em;
+}
+
+
+
+/* expand boxes */
+.sidebox {
+    position: fixed;
+    margin-top: 2.5%;
+    left: 2.5%;
+    padding: 8px;
+    float: left;
+    max-width: 15%;
+}
+
+.expandbox .expandbutton {
+    display: inherit;
+}
+
+.expandbox:hover .expandbutton {
+    display: none;
+}
+
+.expandbutton h2 {
+    font-size: 1.1em;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.expandbox:hover {
+    position: relative;
+}
+
+.expandbox .expanded {
+    display: none;
+}
+
+.expandbox:hover .expanded {
+    display: inherit;
+}
+
+
+/* for all holoprojections */
+/* includes seporate classes for seporate colors */
+.holored, .holoblue{
+    border: solid 5px #a00000;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 3px;
+    box-shadow: 0px 0px 16px #e0e0e0;
+}
+
+.holored {
+    color: #c00000;
+    background: #900000b0;
+    border-color: #a00000e0;
+    box-shadow: 0px 0px 16px #a00000;
+}
+
+.holoblue {
+    color: #3030d0;
+    background: #181860b0;
+    border-color: #2020a0e0;
+    box-shadow: 0px 0px 16px #2020a0;
+}
+
+
+/* zooming objects */
+
+.zoom{
+    overflow: hidden;
+
+    /* This is important for overflow and absolutely positioned children */
+    position: relative;
+    left: 0;
+    top: 0;
+}
+
+.zoom:hover{
+    position: relative;
+    left: -1%;
+    top: -1%;
+    width: 102%;
+    /*height: 102%;*/
+
+    font-size: 1.1em;
+}
+
+
+/* menu */
+.menu a {
+    width: 90%;
+    display: block;
+    padding: 8px;
+    border-bottom: solid 3px #20202080;
+}
+
+.menu a:hover{
+    background: #e0e0e0c0;
+    color: #20202080;
+}
+
+
+/* vector decals */
+svg {
+    max-height: 80%;
+}
+
+path {
+    stroke-width: 3px;
+    fill: #00000000;
+}
+
+path.filledicon{
+    stroke-width: 1;
+    fill: #e0e0e080;
+}
+
+a:hover path.filledicon{
+    fill: #e0e0e0a0;
+}
+
+.holoblue path {
+    stroke: #2020a0a0;
+}
+
+
+/* corner decals specifically */
+.cornerupper, .cornerright, .cornerleft, .cornerright{
+    position: absolute;
+}
+
+.cornerupper {
+    top: 10;
+}
+
+.cornerright {
+    right: 10;
+}
+
+.cornerlower {
+    bottom: 10;
+}
+
+.cornerleft {
+    left: 10;
+}

@@ -1,0 +1,31 @@
+.decorbottom{
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+}
+
+.decorbottom span{
+    display: block;
+}
+
+.decorarea {
+    padding: 8px;
+    text-align: center;
+}
+
+.decorloadarea{
+    height: 100px;
+    width: 16px;
+    margin: 0 auto;
+    margin-bottom: 8px;
+    display: inline-block;
+    position: relative;
+}
+
+.decorloadbar {
+    height: 50px;
+    width: 16px;
+    background: #e0e0e080;
+    bottom: 0;
+    position: absolute;
+}
