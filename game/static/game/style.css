@@ -1,3 +1,4 @@
+/* Dialog options */
 .option {
     display: block;
     padding: 8px;
@@ -11,4 +12,91 @@
 
 .option:hover {
     margin-left: 15%;
+}
+
+
+/* The broader hacking nodes */
+.hackingarea {
+    position: relative;
+    height: 80vh;
+    width: 100%;
+}
+
+.hackingarea svg {
+    overflow: visible;
+    height: 100%;
+    width: 100%;
+}
+
+.hackinglink:hover {
+    stroke: #a0a0a0a0;
+    stroke-width: 6px;
+}
+
+
+/* Hacking nodes */
+.hackingnode {
+    width: 25%;
+    position: absolute;
+    margin: 0;
+    transform: translate(-50%, -50%);
+}
+
+.hackingnode .holosectiontop {
+    padding: 8px 32px;
+    font-family: 'Rye', cursive; /* later period headline */
+}
+
+.hackingterminal {
+    margin: 16px;
+    margin-top: 0px;
+    display: inline-block;
+}
+
+.hackingterminal h3{
+    padding: 16px;
+    margin: 0;
+}
+
+/* Hacking toolbar */
+.hackingcycles, .hackingtool {
+    margin-left: 8px;
+}
+
+.hackingcycles p, .hackingtool button {
+    display: inline-block;
+    padding: 8px;
+    margin: 0px;
+}
+
+.hackingcycles > div {
+    display: flex;
+    align-items: center;
+}
+
+.hackingcycles h3 {
+    display: inline-block;
+    margin: 0;
+    margin-left: 8px;
+    font-family: 'Rye', cursive; /* later period headline */
+    font-size: 1.7em;
+}
+
+.hackingcycles p {
+    font-size: 0.75em;
+}
+
+.hackingtool h3 {
+    font-family: 'UnifrakturMaguntia', cursive; /* gothic text */
+    font-size: 1.5em;
+    padding-top: 8px;
+}
+
+.hackingtool p, .hackingtool h3 {
+    margin: 2px;
+    padding: 0;
+}
+
+.hackingtool:hover .expanded {
+    display: inherit;
 }

@@ -7,4 +7,121 @@
 
 
 {% block content %}
+
+    <div class="hackingarea" style="left: 200px; top: 200px">
+
+        <svg>
+            <line class="holored hackinglink" x1="670px" y1="380px" x2="800px" y2="-50px"/>
+        </svg>
+
+        <section class="hackingnode" style="left: 670; top:380">
+            <div class="holored zoom">
+                <h3 class="holosectiontop">
+                    Access Portal
+                </h3>
+                <p>
+                    Enter the right password and the console is yours. But be warned; activity through this gateway is heavily monitored.
+                </p>
+                <div id="hackingterminals">
+                    <div class="hackingterminal">
+                        <div class="holoblue zoom">
+                            <h3>
+                                You
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="hackingterminal">
+                        <div class="holored zoom">
+                            <h3>
+                                Phantom
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="holosectionbottom">
+                    <p class="holosectionright">
+                        <span id="alertlevel">10</span>+i(!)
+                    </p>
+                    <p class="holosectionright">
+                        Pro <span id="protectionlevel">75</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="hackingnode" style="left: 800px; top: -50px">
+            <div class="holored zoom">
+                <h3 class="holosectiontop">
+                    Capitïr's Secondary Data Cache
+                </h3>
+                <p>
+                    Here lies the payload you are looking for; can you get here?
+                </p>
+                <div id="hackingterminals">
+                    <div class="hackingterminal">
+                        <div class="holored zoom">
+                            <h3>
+                                Phantom
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="holosectionbottom">
+                    <p class="holosectionright">
+                        <span id="alertlevel">10</span>+i(!)
+                    </p>
+                    <p class="holosectionright">
+                        Pro <span id="protectionlevel">50</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+
+    <section class="bottombar">
+
+        <div class="hackingcycles">
+            <div class="holoblue zoom">
+                <h3>
+                    <span id="cyclesavailable">10</span> 
+                </h3>
+                <p>
+                    Cycles<br/>Available
+                </p>
+            </div>
+        </div>
+
+        <div class="hackingtool">
+            <button class="holoblue zoom">
+                <h3>Dictionary</h3>
+                <p class="expanded">
+                    <em>This classic attack is from the Ages of the Old System; sometimes simple is good.</em>
+                </p>
+                <p>
+                    <span id="cyclescost">4</span> Cy;
+                    Atk <span id="attacklevel">80</span>;
+                    +<span id="alertlevel">25</span>(!)
+                </p>
+            </button>
+        </div>
+
+        <div class="hackingtool">
+            <button class="holored zoom">
+                <h3>Capitïr's Watchword</h3>
+                <p class="expanded">
+                    Effective against her personal access gateway.
+                </p>
+                <p>
+                    <span id="cyclescost">0</span> Cy;
+                    Atk <span id="attacklevel">10/100</span>;
+                    +<span id="alertlevel">5</span>(!)
+                </p>
+            </button>
+        </div>
+
+    </section>
+
 {% endblock %}
