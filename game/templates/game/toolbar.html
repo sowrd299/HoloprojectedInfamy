@@ -1,0 +1,33 @@
+<!-- a bar of hacking tools -->
+
+<section class="bottombar">
+
+    <div class="hackingcycles">
+        <div class="holoblue zoom">
+            <h3>
+                <span id="cyclesavailable">10</span> 
+            </h3>
+            <p>
+                Cycles<br/>Available
+            </p>
+        </div>
+    </div>
+
+    {% for tool in tools %}
+    <div class="hackingtool">
+        <button id="{{tool.short_name}}" class="holoblue zoom">
+            <h3>{{tool.name}}</h3>
+            <p class="expanded">
+                {{tool.text}}
+                <em>{{tool.flavor_text}}</em>
+            </p>
+            <p>
+                <span id="cyclescost">{{tool.cost}}</span> Cy;
+                Atk <span id="attacklevel">{{tool.attack_level}}</span>;
+                +<span id="alertlevel">{{tool.alert_level}}</span>(!)
+            </p>
+        </button>
+    </div>
+    {% endfor %}
+
+</section>

@@ -290,3 +290,9 @@ a:hover path.filledicon{
 .cornerleft {
     left: 10;
 }
+
+
+/* misc. tools */
+.hidden {
+    display: none;
+}

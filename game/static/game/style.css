@@ -100,3 +100,8 @@
 .hackingtool:hover .expanded {
     display: inherit;
 }
+
+.hackingtool span {
+    font-size: 1.2em;
+    font-family: 'UnifrakturMaguntia', cursive; /* gothic text */
+}
