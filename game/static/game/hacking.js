@@ -68,6 +68,49 @@ function setVisible(element, visible) {
 
 
 /*
+Causes a number to change gradually
+Does not work with current update model though; needs to run every frame
+*/
+function animateNumber(element, targetNumber){
+    let currrentNumber = element.innerText * 1;
+    if(currrentNumber < targetNumber){
+        currrentNumber += 1;
+    }else if(currrentNumber > targetNumber){
+        currrentNumber -= 1;
+    }
+    element.innerText = currrentNumber;
+}
+
+
+/*
+To be run whenever the gamestate changes
+*/
+function display() {
+
+    // update center the target node
+    area.style.left = (area.clientWidth/2 - targetNode.fields.x_pos)+"px";
+    area.style.top = (area.clientHeight/2 - targetNode.fields.y_pos)+"px";
+
+    // update number of cycles
+    cycles_element.innerText = cycles;
+
+    // update the terminal displays
+    for(let i = 0; i < node_elements.length; i++)  {
+        let node_element = node_elements.item(i);
+        let node = nodes[node_element.id];
+
+        node_element.querySelector("#protectionlevel").innerText = node.protection_level;
+        node_element.querySelector("#alertlevel").innerText = node.alert_level;
+
+        setVisible(node_element.querySelector("#player"), node == playerNode);
+        setVisible(node_element.querySelector("#target"), node == targetNode && isLegalTarget(node));
+        setVisible(node_element.querySelector("#enemy"), enemyNodes.has(node));
+    }
+
+}
+
+
+/*
 Attempts to advance the game state by running a "hack";
 This is where most game logic is implemented
 Assumes that targetNode is being targeted by the given tool
@@ -79,18 +122,29 @@ function hack(tool) {
         // manage cycles
         cycles -= tool.fields.cost;
         cycles += cyclesperturn; // get a cycle every move
+
+        // hack outcome
+        let level_dif = tool.attack_level - targetNode.protection_level;
+        let success = Math.random() < (tool.attack_level / targetNode.protection_level);
+        let alert = Math.max(tool.alert_level, -level_dif);
+        let damage = Math.max(5, level_dif);
         
-        // move
-        playerNode = targetNode;
+        targetNode.alert_level += alert;
+        targetNode.protection_level = Math.max(5, targetNode.protection_level - damage);
+        
+        if(success){
+            // move
+            playerNode = targetNode;
 
-        // update visibility
-        playerNode.linked_nodes.forEach(node => {
-            setVisible(node, true)
-        });
+            // update visibility
+            playerNode.linked_nodes.forEach(node => {
+                setVisible(node, true);
+            });
 
-        playerNode.linked_links.forEach(link=> {
-            setVisible(link, true)
-        });
+            playerNode.linked_links.forEach(link=> {
+                setVisible(link, true);
+            });
+        }
 
         // clearnup
         display();
@@ -118,6 +172,8 @@ function setup() {
         node.linked_links = new Set(); // technically part of the display system... :(
 
         node.is_visible = !node.fields.is_secret;
+        node.alert_level = node.fields.alert_level;
+        node.protection_level = node.fields.protection_level;
 
         if(node.fields.is_player_start){
             playerNode = node;
@@ -137,6 +193,9 @@ function setup() {
 
     tools_json.forEach(tool => {
         tools[tool.pk] = tool;
+        tool.cost = tool.fields.cost;
+        tool.attack_level = tool.fields.attack_level;
+        tool.alert_level = tool.fields.alert_level;
     });
 
 
@@ -199,31 +258,6 @@ function setup() {
 
     // run the display
     display();
-
-}
-
-
-/*
-To be run whenever the gamestate changes
-*/
-function display() {
-
-    // update center the target node
-    area.style.left = (area.clientWidth/2 - targetNode.fields.x_pos)+"px";
-    area.style.top = (area.clientHeight/2 - targetNode.fields.y_pos)+"px";
-
-    // update number of cycles
-    cycles_element.innerText = cycles;
-
-    // update the terminal displays
-    for(let i = 0; i < node_elements.length; i++)  {
-        let node_element = node_elements.item(i);
-        let node = nodes[node_element.id];
-
-        setVisible(node_element.querySelector("#player"), node == playerNode);
-        setVisible(node_element.querySelector("#target"), node == targetNode && isLegalTarget(node));
-        setVisible(node_element.querySelector("#enemy"), enemyNodes.has(node));
-    }
 
 }
 
