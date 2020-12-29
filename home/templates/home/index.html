@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="{% static 'game/style.css' %}"/>
         <link rel="stylesheet" href="{% static 'home/decor/decor.css' %}"/>
 
+        <script src="{% static 'home/utils.js' %}"></script>
         <script src="{% static 'home/decor/decor.js' %}"></script>
 
         {% block afterhead %}
@@ -117,6 +118,42 @@
             </section>
             {% endblock %}
 
+
+            <!-- the alert box -->
+            <section id="alertbox" class="hidden">
+                <div class="holoblue zoom">
+
+                    <!-- decorations -->
+                    <svg class="cornerupper cornerleft" height="100" width="100">
+                        {% include 'home/svg/corner.html' %}
+                    </svg>
+
+                    <svg class="cornerupper cornerright " height="100" width="100">
+                        <g transform="scale(-1,1) translate(-100,0)" >
+                            {% include 'home/svg/corner.html' %}
+                        </g>
+                    </svg>
+
+                    <svg class="cornerlower cornerleft" height="100" width="100">
+                        <g transform="scale(1,-1) translate(0,-100)" >
+                            {% include 'home/svg/corner.html' %}
+                        </g>
+                    </svg>
+
+
+                    <!-- functional content -->
+                    <h1>An Ergent Message:</h1>
+                    <p>This is an ergent message! Things are continuing to happen in all Eleven Systems! All Major Houses are active!
+                    Also, if you are seeting this, somethings has gone wrong.</p>
+                    <button>
+                        <div class="holoblue zoom">
+                            <h2>Ja</h2>
+                        </div>
+                    </button>
+                </div>
+            </section>
+
+        <!--/end content-->
         </div>
 
         <!-- the moving "status" bar at the bottom -->

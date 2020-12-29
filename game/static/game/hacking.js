@@ -51,34 +51,6 @@ function isLegalTarget(node){
 
 
 /*
-Sets whether or not the given element has the given class
-Works for DOM elements or Django JSON objects that correspond to DOM elements
-*/
-function setClass(element, domClass, value) {
-    if(!(element instanceof Element)){
-        element = document.getElementById(element.pk);
-    }
-    if(value){
-        element.classList.add(domClass);
-    }else{
-        element.classList.remove(domClass);
-    }
-}
-
-
-/*
-Sets the visibility of the given element to the given value
-Works for DOM elements or Django JSON objects that correspond to DOM elements
-*/
-function setVisible(element, visible) {
-    if(!(element instanceof Element)){
-        element.is_visible = visible;
-    }
-    setClass(element, "hidden", !visible);
-}
-
-
-/*
 returns wether or not that is a legal tool to use
 */
 function canUseTool(tool){
@@ -180,6 +152,13 @@ function hack(tool) {
         playerNode.linked_links.forEach(link=> {
             setVisible(link, true);
         });
+    }else{
+        boxAlert("Your tool has failed to hack successfully; you have not progressed through the Net; time has passed, and the phantoms may become aware of your failure.");
+    }
+
+    // check if the player got caught
+    if(enemyNodes.has(playerNode)){
+        boxAlert("You have been caught. Your have been forcibly exspelled from the Net, your terminal is being back-traced, and enemy enforcers will be at your location momentarily. We advise you run.");
     }
 
     // clearnup

@@ -296,3 +296,44 @@ a:hover path.filledicon{
 .hidden {
     display: none !important;
 }
+
+button {
+    padding: 0;
+    background: #00000000;
+    border-width: 0;
+}
+
+
+/* The alert box */
+#alertbox {
+    position: fixed;
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#alertbox h1 {
+    font-size: 2em;
+    margin-left: 64px;
+    margin-bottom: 8px;
+}
+
+#alertbox p {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+#alertbox button {
+    float: right;
+    margin: 8px;
+}
+
+#alertbox h2 {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+#alertbox > .holoblue {
+    background: #131350e0;
+}
