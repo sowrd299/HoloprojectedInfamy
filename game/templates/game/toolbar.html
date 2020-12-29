@@ -14,8 +14,8 @@
     </div>
 
     {% for tool in tools %}
-    <div class="hackingtool">
-        <button id="{{tool.short_name}}" class="holoblue zoom">
+    <button  id="{{tool.short_name}}" class="hackingtool">
+        <div class="holoblue zoom">
             <h3>{{tool.name}}</h3>
             <p class="expanded">
                 {{tool.text}}
@@ -26,8 +26,8 @@
                 Atk <span id="attacklevel">{{tool.attack_level}}</span>;
                 +<span id="alertlevel">{{tool.alert_level}}</span>(!)
             </p>
-        </button>
-    </div>
+        </div>
+    </button>
     {% endfor %}
 
 </section>

@@ -12,6 +12,10 @@ let enemyNodes; // a set of all nodes with enemies
 
 let area;
 
+let cycles = 4;
+let cycles_element;
+let cyclesperturn = 1;
+
 
 /*
 Targets a specific node
@@ -42,14 +46,19 @@ function traverseLink(link_element) {
 Is legal target
 */
 function isLegalTarget(node){
-    return playerNode.linked_nodes.has(node);
+    return playerNode.linked_nodes.has(node) && node.is_visible;
 }
 
 
 /*
 Sets the visibility of the given element to the given value
+Works for DOM elements or Django JSON objects that correspond to DOM elements
 */
 function setVisible(element, visible) {
+    if(!(element instanceof Element)){
+        element.is_visible = visible;
+        element = document.getElementById(element.pk);
+    }
     if(visible){
         element.classList.remove("hidden");
     }else{
@@ -59,11 +68,45 @@ function setVisible(element, visible) {
 
 
 /*
+Attempts to advance the game state by running a "hack";
+This is where most game logic is implemented
+Assumes that targetNode is being targeted by the given tool
+Returns the success state
+*/
+function hack(tool) {
+    if(isLegalTarget(targetNode) && tool.fields.cost <= cycles){
+
+        // manage cycles
+        cycles -= tool.fields.cost;
+        cycles += cyclesperturn; // get a cycle every move
+        
+        // move
+        playerNode = targetNode;
+
+        // update visibility
+        playerNode.linked_nodes.forEach(node => {
+            setVisible(node, true)
+        });
+
+        playerNode.linked_links.forEach(link=> {
+            setVisible(link, true)
+        });
+
+        // clearnup
+        display();
+        return true;     
+    }
+    return false;
+}
+
+
+/*
 To be run when the page loads
 */
 function setup() {
 
     area = document.getElementById("hackingarea");
+    cycles_element = document.getElementById("cyclesavailable");
 
     // nodes data structure
     nodes = {};
@@ -72,6 +115,7 @@ function setup() {
     nodes_json.forEach(node => {
         nodes[node.pk] = node;
         node.linked_nodes = new Set();
+        node.linked_links = new Set(); // technically part of the display system... :(
 
         node.is_visible = !node.fields.is_secret;
 
@@ -92,7 +136,7 @@ function setup() {
     tools = {};
 
     tools_json.forEach(tool => {
-        tool[tool.pk] = tool;
+        tools[tool.pk] = tool;
     });
 
 
@@ -124,8 +168,17 @@ function setup() {
         }
     }
 
+    // setup tools
     tool_elements = document.getElementsByClassName("hackingtool");
+    for(let i = 0; i < tool_elements.length; i++) {
+        let tool_element = tool_elements.item(i);
+        let tool = tools[tool_element.id];
+        tool_element.onclick = function(event){
+            hack(tool);
+        }
+    }
 
+    // setup links
     link_elements = document.getElementsByClassName("hackinglink");
     for(let i = 0; i < link_elements.length; i++) {
         let link_element = link_elements.item(i);
@@ -138,8 +191,9 @@ function setup() {
         for(let j = 0; j < linked_nodes.length; j++){
             if(!nodes[linked_nodes[j]].is_visible){
                 setVisible(link_element, false);
-                break;
             }
+
+            nodes[linked_nodes[j]].linked_links.add(link_element);
         }
     }
 
@@ -157,6 +211,9 @@ function display() {
     // update center the target node
     area.style.left = (area.clientWidth/2 - targetNode.fields.x_pos)+"px";
     area.style.top = (area.clientHeight/2 - targetNode.fields.y_pos)+"px";
+
+    // update number of cycles
+    cycles_element.innerText = cycles;
 
     // update the terminal displays
     for(let i = 0; i < node_elements.length; i++)  {
