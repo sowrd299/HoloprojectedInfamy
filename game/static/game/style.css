@@ -20,6 +20,7 @@
     position: relative;
     height: 80vh;
     width: 100%;
+    transition: left 2s, top 2s;
 }
 
 .hackingarea svg {

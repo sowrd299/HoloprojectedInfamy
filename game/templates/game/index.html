@@ -3,12 +3,20 @@
 
 {% block afterhead %}
     <link rel="stylesheet" href="{% static 'game/style.css' %}"/>
+    <script src="{% static 'game/hacking.js' %}"></script>
 {% endblock %}
 
 
 {% block content %}
 
-    <div class="hackingarea" style="left: 200px; top: 200px">
+    <!-- Providing data to the JS reprisentation of the game -->
+    <script>
+        var nodes_json = {{ nodes_json | safe }};
+        var links_json = {{ links_json | safe }};
+        var tools_json = {{ tools_json | safe }};
+    </script>
+
+    <div id="hackingarea" class="hackingarea">
 
         <!--links-->
         <svg>
