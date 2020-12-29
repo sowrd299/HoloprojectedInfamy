@@ -247,7 +247,7 @@ svg {
     max-height: 80%;
 }
 
-path, line {
+path, line, ellipse {
     stroke-width: 3px;
     fill: #00000000;
 }
@@ -261,12 +261,12 @@ a:hover path.filledicon{
     fill: #e0e0e0a0;
 }
 
-.holoblue path, .holoblue {
-    stroke: #2020a0a0;
+.holored path, .holored line, .holored ellipse, .holored {
+    stroke: #a00000a0;
 }
 
-.holored path, .holored {
-    stroke: #a00000a0;
+.holoblue path, .holoblue line, .holoblue ellipse, .holoblue {
+    stroke: #2020a0a0;
 }
 
 

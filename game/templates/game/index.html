@@ -27,6 +27,10 @@
                         y1="{{link.node_from.y_pos}}px" 
                         x2="{{link.node_to.x_pos}}px"
                         y2="{{link.node_to.y_pos}}px"/>
+                <!--
+                <ellipse class="holored" cx="{{link.node_to.x_pos}}" cy="{{link.node_to.y_pos}}" rx="5" ry="5" />
+                <ellipse class="holored" cx="{{link.node_from.x_pos}}" cy="{{link.node_from.y_pos}}" rx="5" ry="5" />
+                -->
             {% endfor %}
         </svg>
 
@@ -50,6 +54,18 @@
                         <div class="holoblue zoom">
                             <h3 id="name">
                                 Terminal
+                            </h3>
+                        </div>
+                    </div>
+                    <!-- targeting terminal -->
+                    <div id="target" class="hackingterminal">
+                        <div class="holoblue zoom">
+                            <h3 id="name">
+                                <svg height="40" width="40">
+                                    <g transform="scale(0.4,0.4)" >
+                                        {% include 'game/svg/crosshair.html' %}
+                                    </g>
+                                </svg>
                             </h3>
                         </div>
                     </div>

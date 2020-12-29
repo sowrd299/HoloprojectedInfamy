@@ -14,6 +14,15 @@ let area;
 
 
 /*
+Targets a specific node
+*/
+function setTargetNode(node){
+    targetNode = node;
+    display();
+}
+
+
+/*
 Traverses the screen and targeting system across a link
 */
 function traverseLink(link_element) {
@@ -22,11 +31,18 @@ function traverseLink(link_element) {
         let nodeId = nodeIds[i];
         let node = nodes[nodeId];
         if(node != targetNode){
-            targetNode = node;
+            setTargetNode(node);
             break;
         }
     };
-    display();
+}
+
+
+/*
+Is legal target
+*/
+function isLegalTarget(node){
+    return playerNode.linked_nodes.has(node);
 }
 
 
@@ -94,12 +110,18 @@ function setup() {
 
     node_elements = document.getElementsByClassName("hackingnode");
     for(let i = 0; i < node_elements.length; i++){
-        let terminals = node_elements.item(i).getElementsByClassName("hackingterminal");
+        let node = node_elements.item(i);
+        let terminals = node.getElementsByClassName("hackingterminal");
         for(let j = 0; j < terminals.length; j++){
             setVisible(terminals.item(j), false)
         }
 
-        setVisible(node_elements.item(i), nodes[node_elements.item(i).id].is_visible);
+        setVisible(node, nodes[node.id].is_visible);
+
+        // enable moving by targeting nodes
+        node.onclick = function(event){
+            setTargetNode(nodes[node.id]);
+        }
     }
 
     tool_elements = document.getElementsByClassName("hackingtool");
@@ -142,6 +164,7 @@ function display() {
         let node = nodes[node_element.id];
 
         setVisible(node_element.querySelector("#player"), node == playerNode);
+        setVisible(node_element.querySelector("#target"), node == targetNode && isLegalTarget(node));
         setVisible(node_element.querySelector("#enemy"), enemyNodes.has(node));
     }
 
