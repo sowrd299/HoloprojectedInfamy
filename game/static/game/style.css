@@ -48,6 +48,13 @@
     font-family: 'Rye', cursive; /* later period headline */
 }
 
+.hackingterminalarea {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+}
+
 .hackingterminal {
     margin: 16px;
     margin-top: 0px;
@@ -113,4 +120,8 @@
 .hackingtool span {
     font-size: 1.2em;
     font-family: 'UnifrakturMaguntia', cursive; /* gothic text */
+}
+
+.cannotuse {
+    opacity: 0.4;
 }

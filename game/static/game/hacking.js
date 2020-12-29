@@ -51,19 +51,38 @@ function isLegalTarget(node){
 
 
 /*
+Sets whether or not the given element has the given class
+Works for DOM elements or Django JSON objects that correspond to DOM elements
+*/
+function setClass(element, domClass, value) {
+    if(!(element instanceof Element)){
+        element = document.getElementById(element.pk);
+    }
+    if(value){
+        element.classList.add(domClass);
+    }else{
+        element.classList.remove(domClass);
+    }
+}
+
+
+/*
 Sets the visibility of the given element to the given value
 Works for DOM elements or Django JSON objects that correspond to DOM elements
 */
 function setVisible(element, visible) {
     if(!(element instanceof Element)){
         element.is_visible = visible;
-        element = document.getElementById(element.pk);
     }
-    if(visible){
-        element.classList.remove("hidden");
-    }else{
-        element.classList.add("hidden");
-    }
+    setClass(element, "hidden", !visible);
+}
+
+
+/*
+returns wether or not that is a legal tool to use
+*/
+function canUseTool(tool){
+    return isLegalTarget(targetNode) && tool.fields.cost <= cycles
 }
 
 
@@ -107,6 +126,11 @@ function display() {
         setVisible(node_element.querySelector("#enemy"), enemyNodes.has(node));
     }
 
+    for(let i = 0; i < tool_elements.length; i++)  {
+        let element = tool_elements.item(i);
+        setClass(element, "cannotuse", !canUseTool(tools[element.id]));
+    }
+
 }
 
 
@@ -117,40 +141,50 @@ Assumes that targetNode is being targeted by the given tool
 Returns the success state
 */
 function hack(tool) {
-    if(isLegalTarget(targetNode) && tool.fields.cost <= cycles){
+    // manage cycles
+    cycles -= tool.fields.cost;
+    cycles += cyclesperturn; // get a cycle every move
 
-        // manage cycles
-        cycles -= tool.fields.cost;
-        cycles += cyclesperturn; // get a cycle every move
+    // move the enemies to the highest alert node near them
+    // do this before changes to be simpler for the player to track
+    let newEnemyNodes = new Set();
+    enemyNodes.forEach(enemy => {
+        let newNode = null;
+        enemy.linked_nodes.forEach(node => {
+            if(!newNode || node.alert_level + node.alert_rand > newNode.alert_level + newNode.alert_rand){
+                newNode = node;
+            }
+        });
+        newEnemyNodes.add(newNode);
+    });
+    enemyNodes = newEnemyNodes;
 
-        // hack outcome
-        let level_dif = tool.attack_level - targetNode.protection_level;
-        let success = Math.random() < (tool.attack_level / targetNode.protection_level);
-        let alert = Math.max(tool.alert_level, -level_dif);
-        let damage = Math.max(5, level_dif);
-        
-        targetNode.alert_level += alert;
-        targetNode.protection_level = Math.max(5, targetNode.protection_level - damage);
-        
-        if(success){
-            // move
-            playerNode = targetNode;
+    // hack outcome
+    let level_dif = tool.attack_level - targetNode.protection_level;
+    let success = Math.random() < (tool.attack_level / targetNode.protection_level);
+    let alert = Math.max(tool.alert_level, -level_dif);
+    let damage = Math.max(5, level_dif); // MIN DAMAGE IMPLEMENTED HERE
+    
+    targetNode.alert_level += alert;
+    targetNode.protection_level = Math.max(5, targetNode.protection_level - damage); // MIN ALERT LEVEL IMPLEMENTED HERE
+    
+    // move the player
+    if(success){
+        playerNode = targetNode;
 
-            // update visibility
-            playerNode.linked_nodes.forEach(node => {
-                setVisible(node, true);
-            });
+        // update visibility
+        playerNode.linked_nodes.forEach(node => {
+            setVisible(node, true);
+        });
 
-            playerNode.linked_links.forEach(link=> {
-                setVisible(link, true);
-            });
-        }
-
-        // clearnup
-        display();
-        return true;     
+        playerNode.linked_links.forEach(link=> {
+            setVisible(link, true);
+        });
     }
-    return false;
+
+    // clearnup
+    display();
+    return success;
 }
 
 
@@ -173,13 +207,14 @@ function setup() {
 
         node.is_visible = !node.fields.is_secret;
         node.alert_level = node.fields.alert_level;
+        node.alert_rand = Math.random() * 20; // scale of alert random implemented here
         node.protection_level = node.fields.protection_level;
 
         if(node.fields.is_player_start){
             playerNode = node;
         }
 
-        if(node.fields.is_enemy_node){
+        if(node.fields.is_enemy_start){
             enemyNodes.add(node);
         }
 
@@ -233,7 +268,9 @@ function setup() {
         let tool_element = tool_elements.item(i);
         let tool = tools[tool_element.id];
         tool_element.onclick = function(event){
-            hack(tool);
+            if(canUseTool(tool)){
+                hack(tool);
+            }
         }
     }
 
