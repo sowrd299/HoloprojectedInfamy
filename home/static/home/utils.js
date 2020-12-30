@@ -31,6 +31,18 @@ function setVisible(element, visible) {
 
 
 /*
+Changes the holo color of the element
+TODO: runs in O(nm) time, coule be faster
+*/
+function setHoloColor(element, holocolor){
+    let holocolors = ['holored', 'holoblue', 'hologreen', 'holopurple', 'holoyellow', 'holopink', 'holobrown'];
+    holocolors.forEach(color => {
+        setClass(element, color, color == holocolor);
+    });
+}
+
+
+/*
 Displays something in the alert box
 Takes the message to show and a function to run once it is resolved
 */

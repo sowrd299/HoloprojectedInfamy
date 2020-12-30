@@ -10,6 +10,7 @@ let playerNode; // the node where they player's terminal is
 let targetNode; // the node the player is targeting
 let enemyNodes; // a set of all nodes with enemies
 
+let toolbar;
 let area;
 
 let cycles = 4;
@@ -55,6 +56,44 @@ returns wether or not that is a legal tool to use
 */
 function canUseTool(tool){
     return isLegalTarget(targetNode) && tool.fields.cost <= cycles
+}
+
+
+/*
+Configures a tool UI element to respond to being clicked appropriately
+*/
+function setupToolButton(tool_element, tool) {
+    tool_element.onclick = function(event){
+        if(canUseTool(tool)){
+            hack(tool);
+        }
+    }
+}
+
+
+/*
+Adds a tool to the player's toolbar
+*/
+function giveTool(tool){
+    let tool_element = tool_elements.item(0).cloneNode(true);
+
+    tool_element.querySelector("#name").innerText = tool.fields.name;
+    tool_element.id = tool.pk;
+    let text_element = tool_element.querySelector("#text");
+    if(text_element) text_element.innerText = tool.fields.text;
+
+    // TODO: find a bette solution for the disappearing flavortext bracket
+    let flavor_text_element = tool_element.querySelector("#flavortext");
+    if(flavor_text_element) flavor_text_element.innerText = tool.fields.flavor_text;
+
+    tool_element.querySelector("#cyclescost").innerText = tool.cost;
+    tool_element.querySelector("#attacklevel").innerText = tool.attack_level;
+    tool_element.querySelector("#alertlevel").innerText = tool.alert_level;
+
+    setHoloColor(tool_element.querySelector("div"), "holored");
+    setupToolButton(tool_element, tool);
+
+    toolbar.appendChild(tool_element);
 }
 
 
@@ -152,6 +191,12 @@ function hack(tool) {
         playerNode.linked_links.forEach(link=> {
             setVisible(link, true);
         });
+
+        // give tools
+        playerNode.pickups.forEach(tool => {
+            giveTool(tool);
+        });
+
     }else{
         boxAlert("Your tool has failed to hack successfully; you have not progressed through the Net; time has passed, and the phantoms may become aware of your failure.");
     }
@@ -172,6 +217,7 @@ To be run when the page loads
 */
 function setup() {
 
+    toolbar = document.getElementById("hackingtoolbar");
     area = document.getElementById("hackingarea");
     cycles_element = document.getElementById("cyclesavailable");
 
@@ -183,6 +229,7 @@ function setup() {
         nodes[node.pk] = node;
         node.linked_nodes = new Set();
         node.linked_links = new Set(); // technically part of the display system... :(
+        node.pickups = [];
 
         node.is_visible = !node.fields.is_secret;
         node.alert_level = node.fields.alert_level;
@@ -210,6 +257,10 @@ function setup() {
         tool.cost = tool.fields.cost;
         tool.attack_level = tool.fields.attack_level;
         tool.alert_level = tool.fields.alert_level;
+    });
+
+    pickups_json.forEach(pickup => {
+        nodes[pickup.fields.node].pickups.push(tools[pickup.fields.tool]);
     });
 
 
@@ -246,11 +297,7 @@ function setup() {
     for(let i = 0; i < tool_elements.length; i++) {
         let tool_element = tool_elements.item(i);
         let tool = tools[tool_element.id];
-        tool_element.onclick = function(event){
-            if(canUseTool(tool)){
-                hack(tool);
-            }
-        }
+        setupToolButton(tool_element, tool);
     }
 
     // setup links

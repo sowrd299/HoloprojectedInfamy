@@ -36,7 +36,7 @@ class HackingNode(models.Model):
     alert_level = models.IntegerField()
 
     def __str__(self):
-        return self.name
+        return "{} ({})".format(self.name, self.map_in)
 
     def hackinglinkset(self):
         return self.linksfromset.union(self.linkstoset)
@@ -71,3 +71,33 @@ class HackingTool(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class HackingToolPickup(models.Model):
+    '''
+    Represents an opportunity to pick up a tool at a hacking node
+    '''
+
+    node = models.ForeignKey(HackingNode, on_delete=models.CASCADE)
+    tool = models.ForeignKey(HackingTool, on_delete=models.CASCADE)
+
+    # for future use maybe:
+    requirement = models.IntegerField(default=0)
+
+    def __str__(self):
+        return "{} at {}".format(self.tool, self.node)
+
+
+class HackingToolSpeciality(models.Model):
+    '''
+    Represents a tool that is very good at breaking a specific node
+    '''
+
+    node = models.ForeignKey(HackingNode, on_delete=models.CASCADE)
+    tool = models.ForeignKey(HackingTool, on_delete=models.CASCADE)
+
+    # the specialized powered-up version of the tool
+    tool_becomes = models.ForeignKey(HackingTool, related_name="speciality_of", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "{} vs. {}".format(self.tool, self.node)

@@ -1,6 +1,6 @@
 <!-- a bar of hacking tools -->
 
-<section class="bottombar">
+<section id="hackingtoolbar" class="bottombar">
 
     <div class="hackingcycles">
         <div class="holoblue zoom">
@@ -16,10 +16,10 @@
     {% for tool in tools %}
     <button  id="{{tool.short_name}}" class="hackingtool">
         <div class="holoblue zoom">
-            <h3>{{tool.name}}</h3>
-            <p class="expanded">
+            <h3 id="name">{{tool.name}}</h3>
+            <p id="text" class="expanded">
                 {{tool.text}}
-                <em>{{tool.flavor_text}}</em>
+                <em id="flavortext">{{tool.flavor_text}}</em>
             </p>
             <p>
                 <span id="cyclescost">{{tool.cost}}</span> Cy;

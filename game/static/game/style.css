@@ -1,3 +1,9 @@
+/* prevent scroll bars from appearing in the hacking map is too big */
+body {
+    overflow: hidden;
+}
+
+
 /* Dialog options */
 .option {
     display: block;
