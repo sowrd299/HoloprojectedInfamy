@@ -125,8 +125,8 @@ To be run whenever the gamestate changes
 function display() {
 
     // center the target node
-    area.style.left = (area.clientWidth/2 - targetNode.fields.x_pos)+"px";
-    area.style.top = (area.clientHeight/2 - targetNode.fields.y_pos)+"px";
+    area.style.left = (window.innerWidth/2 - targetNode.fields.x_pos)+"px";
+    area.style.top = (4 * window.innerHeight/10 - targetNode.fields.y_pos)+"px";
 
     // update number of cycles
     cycles_element.innerText = cycles;

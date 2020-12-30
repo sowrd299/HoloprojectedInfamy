@@ -45,6 +45,10 @@ header {
     text-align: center;
 }
 
+header:hover {
+    z-index: 10;
+}
+
 h1, h2 {
     font-family: 'UnifrakturMaguntia', cursive;
 }
@@ -110,6 +114,10 @@ p::first-letter{
     padding: 8px;
     float: left;
     max-width: 15%;
+}
+
+.sidebox:hover {
+    z-index: 10;
 }
 
 .expandbox .expandbutton {
