@@ -72,27 +72,34 @@ function setupToolButton(tool_element, tool) {
 
 
 /*
-Adds a tool to the player's toolbar
+Makes the given tool element show the given tool
+Does not affect the tool elements ID (so it can still be tracked)
+    ... or color
 */
-function giveTool(tool){
-    let tool_element = tool_elements.item(0).cloneNode(true);
-
+function displayTool(tool_element, tool) {
     tool_element.querySelector("#name").innerText = tool.fields.name;
-    tool_element.id = tool.pk;
-    let text_element = tool_element.querySelector("#text");
-    if(text_element) text_element.innerText = tool.fields.text;
-
-    // TODO: find a bette solution for the disappearing flavortext bracket
-    let flavor_text_element = tool_element.querySelector("#flavortext");
-    if(flavor_text_element) flavor_text_element.innerText = tool.fields.flavor_text;
-
+    tool_element.querySelector("#text").innerHTML = tool.fields.text + "<em>" + tool.fields.flavor_text + "</em>";
     tool_element.querySelector("#cyclescost").innerText = tool.cost;
     tool_element.querySelector("#attacklevel").innerText = tool.attack_level;
     tool_element.querySelector("#alertlevel").innerText = tool.alert_level;
 
-    setHoloColor(tool_element.querySelector("div"), "holored");
+    /*
+    having this line here does a weird "what you see is what you get thing"
+        ... where updating the display for specialities also updates the gameplay
+        ... but that is really convinient
+    */
     setupToolButton(tool_element, tool);
+}
 
+
+/*
+Adds a tool to the player's toolbar
+*/
+function giveTool(tool){
+    let tool_element = tool_elements.item(0).cloneNode(true);
+    tool_element.id = tool.pk;
+    displayTool(tool_element, tool);
+    setHoloColor(tool_element.querySelector("div"), "holored");
     toolbar.appendChild(tool_element);
 }
 
@@ -117,7 +124,7 @@ To be run whenever the gamestate changes
 */
 function display() {
 
-    // update center the target node
+    // center the target node
     area.style.left = (area.clientWidth/2 - targetNode.fields.x_pos)+"px";
     area.style.top = (area.clientHeight/2 - targetNode.fields.y_pos)+"px";
 
@@ -137,9 +144,20 @@ function display() {
         setVisible(node_element.querySelector("#enemy"), enemyNodes.has(node));
     }
 
+    // update tool elements
     for(let i = 0; i < tool_elements.length; i++)  {
         let element = tool_elements.item(i);
-        setClass(element, "cannotuse", !canUseTool(tools[element.id]));
+        let tool = tools[element.id];
+
+        setClass(element, "cannotuse", !canUseTool(tool));
+
+        if(tool.specialities[targetNode.pk]) {
+            displayTool(element, tool.specialities[targetNode.pk]);
+            element.dataset.showingSpeciality = "True";
+        }else if(element.dataset.showingSpeciality == "True"){
+            displayTool(element, tool);
+            element.dataset.showingSpeciality = "False";
+        }
     }
 
 }
@@ -257,6 +275,11 @@ function setup() {
         tool.cost = tool.fields.cost;
         tool.attack_level = tool.fields.attack_level;
         tool.alert_level = tool.fields.alert_level;
+        tool.specialities = {};
+    });
+
+    specialities_json.forEach(speciality => {
+        tools[speciality.fields.tool].specialities[speciality.fields.node] = tools[speciality.fields.tool_becomes];
     });
 
     pickups_json.forEach(pickup => {
