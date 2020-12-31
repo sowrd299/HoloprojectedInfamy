@@ -4,23 +4,6 @@ body {
 }
 
 
-/* Dialog options */
-.option {
-    display: block;
-    padding: 8px;
-    min-width: 80%;
-    max-width: 80%;
-    margin-left: 10%;
-    margin-top: 16px;
-
-    border-width: 3px;
-}
-
-.option:hover {
-    margin-left: 15%;
-}
-
-
 /* The broader hacking nodes */
 .hackingarea {
     position: relative;

@@ -1,0 +1,6 @@
+<!-- a secret form used to elegantly progress through the game -->
+<!-- which eh I don't really need yet; maybe when we get close to production -->
+<form action="{% url 'game:index' %}" method="POST" class="hidden">
+    <input name="next" type="hidden"/>
+    <input name="toolscollected" type="hidden"/>
+</form>

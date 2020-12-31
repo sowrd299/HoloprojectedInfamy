@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render
 from django.core.serializers import serialize
 from django.db.models import Count
@@ -6,12 +7,33 @@ from .models import *
 
 # Create your views here.
 
-def index(request):
-    hacking_map = 'Test'
+def home(request):
+    '''
+    A list of all tasks the play can go do.
+    '''
+    return dialog(request)
+
+
+def dialog(request):
+    '''
+    Renders some in-game dialog
+    '''
+    return render(request, 'game/dialog.html')
+
+
+def hacking(request, hacking_map):
+    '''
+    Renders the provided hacking encounter
+    Errors if the page does not exist
+    '''
+    
+    nodes = HackingNode.objects.filter(map_in__short_name = hacking_map)
+    if nodes.count == 0:
+        raise Http404("Hacking map does not exist")
 
     # load the gamestate into the context
     context = {
-        'nodes' : HackingNode.objects.filter(map_in__short_name = hacking_map),
+        'nodes' : nodes,
         'links' : HackingLink.objects.filter(node_from__map_in__short_name = hacking_map),
         'tools' : HackingTool.objects.annotate(is_pickup=Count('hackingtoolpickup'), is_special=Count('speciality_of')).filter(is_pickup = 0, is_special=0), # PLACEHOLDER FILTER FOR WHAT TOOLS ARE ON THE TOOL BELT
 
@@ -25,4 +47,14 @@ def index(request):
     json_context = { '{}_json'.format(k) : serialize('json', v) for k, v in context.items() }
     context.update(json_context)
 
-    return render(request, 'game/index.html', context)
+    return render(request, 'game/hacking.html', context)
+
+
+def game(request, option):
+    '''
+    Progresses the player's game in response to the given option
+    '''
+    try:
+        return hacking(request, option)
+    except Http404 as e:
+        return dialog(request)

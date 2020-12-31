@@ -1,0 +1,45 @@
+{% extends 'home/index.html' %}
+{% load static %}
+
+{% block afterhead %}
+    <link rel="stylesheet" href="{% static 'game/dialog.css' %}"/>
+{% endblock %}
+
+{% block content %}
+
+    {% include 'game/continue_form.html' %}
+
+    <section>
+        <div class="zoom holoblue">
+
+            <h2>The Streets of Planet Ämbriav / the Tröjav System</h2>
+
+            <p> Ämbriav is a world of bustling comerce and unbridled potential. As the most economically active planet of the
+            Senate/Cïjang Divide, it provides a key crossroads of goods and ideas.</p>
+
+            <p> Adventure lies ahead of you. What do you choose to do? </p>
+
+            <!-- corner decal -->
+            <svg class="cornerlower cornerright" height="100" width="100">
+                <g transform="scale(-1,-1) translate(-100, -100)" >
+                    {% include 'home/svg/corner.html' %}
+                </g>
+            </svg>
+        </div>
+    </section>
+
+
+    <!-- choices -->
+    <section>
+        <a class="option zoom holoblue" href="{% url 'game:option' 'Test' %}">
+            <strong>1</strong>
+            <svg height="20" width="20">
+                <g transform="scale(0.2,0.2)" >
+                    {% include 'home/svg/arrow.html' %}
+                </g>
+            </svg>
+            Hack the House Härö remote server
+        </a>
+    </section>
+
+{% endblock %}

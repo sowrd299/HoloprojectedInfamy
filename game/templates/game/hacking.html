@@ -2,12 +2,28 @@
 {% load static %}
 
 {% block afterhead %}
-    <link rel="stylesheet" href="{% static 'game/style.css' %}"/>
+    <link rel="stylesheet" href="{% static 'game/hacking.css' %}"/>
     <script src="{% static 'game/hacking.js' %}"></script>
 {% endblock %}
 
+{% block aftersidebox%}
+    <div class="expandbox">
+        <div class="expandbutton holoblue">
+            <svg height="25" width="25">
+                <g transform="scale(0.25,0.25)" >
+                    {% include 'home/svg/star.html' %}
+                </g>
+            </svg>
+        </div>
+        <div class="expanded menu holoblue">
+            <a href="{% url 'game:home' %}">Disconnect Hack</a>
+        </div>
+    </div>
+{% endblock %}
 
 {% block content %}
+
+    {% include 'game/continue_form.html' %}
 
     <!-- Providing data to the JS reprisentation of the game -->
     <script>

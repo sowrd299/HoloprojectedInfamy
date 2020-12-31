@@ -11,7 +11,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@400;700&family=Kelly+Slab&family=Nixie+One&family=Rye&family=Special+Elite&family=UnifrakturMaguntia&display=swap" rel="stylesheet"> 
 
         <link rel="stylesheet" href="{% static 'home/style.css' %}"/>
-        <link rel="stylesheet" href="{% static 'game/style.css' %}"/>
         <link rel="stylesheet" href="{% static 'home/decor/decor.css' %}"/>
 
         <script src="{% static 'home/utils.js' %}"></script>
@@ -55,20 +54,24 @@
         <div class="headerbuffer"></div>
 
         <!-- side box -->
-        <div class="expandbox sidebox holoblue">
-            <div class="expandbutton">
-                <svg height="25" width="25">
-                    <g transform="scale(0.25,0.25)" >
-                        {% include 'home/svg/star.html' %}
-                    </g>
-                </svg>
+        <div class="sidebox">
+            <div class="expandbox">
+                <div class="expandbutton holoblue">
+                    <svg height="25" width="25">
+                        <g transform="scale(0.25,0.25)" >
+                            {% include 'home/svg/star.html' %}
+                        </g>
+                    </svg>
+                </div>
+                <div class="expanded menu holoblue">
+                    <a href="{% url 'home:index' %}">Introduction</a>
+                    <a>Encyclopedia</a>
+                    <a>Options</a>
+                    <a href="{% url 'game:index' %}">Engage</a>
+                </div>
             </div>
-            <div class="expanded menu">
-                <a href="{% url 'home:index' %}">Introduction</a>
-                <a>Encyclopedia</a>
-                <a>Options</a>
-                <a href="{% url 'game:index' %}">Engage</a>
-            </div>
+            {% block aftersidebox%}
+            {% endblock %}
         </div>
 
         <!-- content -->
@@ -94,28 +97,6 @@
                 </div>
             </section>
 
-
-            <!-- choices -->
-            <section>
-                <a class="option zoom holoblue">
-                    <strong>1</strong>
-                    <svg height="20" width="20">
-                        <g transform="scale(0.2,0.2)" >
-                            {% include 'home/svg/arrow.html' %}
-                        </g>
-                    </svg>
-                    Join a House; Swear your oath to and live your life for House, Vessel, and Vice!
-                </a>
-                <a class="option zoom holoblue">
-                    <strong>2</strong>
-                    <svg height="20" width="20">
-                        <g transform="scale(0.2,0.2)" >
-                            {% include 'home/svg/arrow.html' %}
-                        </g>
-                    </svg>
-                    Join the Navosc! Serve justice, prosperity, the Senate, and her allies!
-                </a>
-            </section>
             {% endblock %}
 
 
