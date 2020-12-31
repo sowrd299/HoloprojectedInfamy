@@ -9,9 +9,9 @@
 {% block aftersidebox%}
     <div class="expandbox">
         <div class="expandbutton holoblue">
-            <svg height="25" width="25">
+            <svg height="25" width="25" class="filledicon">
                 <g transform="scale(0.25,0.25)" >
-                    {% include 'home/svg/star.html' %}
+                    {% include 'game/svg/pawn.html' %}
                 </g>
             </svg>
         </div>
@@ -73,6 +73,11 @@
                             <h3 id="name">
                                 Terminal
                             </h3>
+                            <svg class="logo" height="50" width="50">
+                                <g transform="scale(0.5, 0.5)">
+                                    {% include 'game/svg/pawn.html' %}
+                                </g>
+                            </svg>
                         </div>
                     </div>
                     <!-- targeting terminal -->
@@ -93,6 +98,11 @@
                             <h3 id="name">
                                 Phantom
                             </h3>
+                            <svg class="logo" height="50" width="50">
+                                <g transform="scale(0.5, 0.5)">
+                                    {% include 'game/svg/pawn.html' %}
+                                </g>
+                            </svg>
                         </div>
                     </div>
                 </div>

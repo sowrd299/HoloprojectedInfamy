@@ -68,12 +68,14 @@ header img {
     height: 100%;
 }
 
-#logo {
+/*
+A class for a logo embossed behind the text
+*/
+.logo {
     z-index: -1;
-    width: 100px;
-    height: 100px;
     max-height: 110%;
     position: absolute;
+    align-self: center;
     top: -10%;
     transform: translate(-50%, 0);
 }
@@ -141,6 +143,9 @@ p::first-letter{
 
 .expanded {
     display: none;
+}
+
+.expandbox .expanded {
     position: absolute;
     top: 0;
     padding: 8px;
@@ -269,7 +274,7 @@ path, line, ellipse {
     fill: #00000000;
 }
 
-path.filledicon{
+path.filledicon, .filledicon path{
     stroke-width: 1;
     fill: #e0e0e080;
 }
@@ -355,6 +360,6 @@ a {
     margin-bottom: 4px;
 }
 
-#alertbox > .holoblue, .expanded { /* a more intense holoblue for divs that are liable to be on top of stuff */
-    background: #131350e0;
+#alertbox > .holoblue, .expandbox .expanded { /* a more intense holoblue for divs that are liable to be on top of stuff */
+    background: #131350
 }

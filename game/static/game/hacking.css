@@ -57,9 +57,13 @@ body {
     display: inline-block;
 }
 
-.hackingterminal h3{
+.hackingterminal h3 {
     padding: 16px;
     margin: 0;
+}
+
+.hackingterminal .logo {
+    transform: translate(25%, 0);
 }
 
 /* Hacking toolbar */
