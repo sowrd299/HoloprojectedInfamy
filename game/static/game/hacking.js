@@ -221,7 +221,10 @@ function hack(tool) {
 
     // check if the player got caught
     if(enemyNodes.has(playerNode)){
-        boxAlert("You have been caught. Your have been forcibly exspelled from the Net, your terminal is being back-traced, and enemy enforcers will be at your location momentarily. We advise you run.");
+        boxAlert("You have been caught. Your have been forcibly exspelled from the Net, your terminal is being back-traced, and enemy enforcers will be at your location momentarily. We advise you run.",
+                function(){
+                    window.location.href = defeated_url;
+                });
     }
 
     // clearnup

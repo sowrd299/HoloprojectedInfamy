@@ -27,11 +27,15 @@
 
     <!-- Providing data to the JS reprisentation of the game -->
     <script>
+        // JSON data
         var nodes_json = {{ nodes_json | safe }};
         var links_json = {{ links_json | safe }};
         var tools_json = {{ all_tools_json | safe }};
         var pickups_json = {{ pickups_json | safe }};
         var specialities_json = {{ specialities_json | safe }}
+
+        // links
+        var defeated_url = "{% url 'game:home' %}";
     </script>
 
     <div id="hackingarea" class="hackingarea">
