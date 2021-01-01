@@ -24,11 +24,13 @@ def dialog(request, node):
     return render(request, 'game/dialog.html', context)
 
 
-def hacking(request, hacking_map):
+def hacking(request, node):
     '''
     Renders the provided hacking encounter
     Errors if the page does not exist
     '''
+
+    hacking_map = node.map_in.short_name
     
     nodes = HackingNode.objects.filter(map_in__short_name = hacking_map)
     if nodes.count == 0:
@@ -50,6 +52,10 @@ def hacking(request, hacking_map):
     json_context = { '{}_json'.format(k) : serialize('json', v) for k, v in context.items() }
     context.update(json_context)
 
+    # data to avoid jsoning
+    context['starting_node'] = node.pk
+
+    # clean up
     return render(request, 'game/hacking.html', context)
 
 
@@ -67,5 +73,5 @@ def game(request, option):
     # HACKING
     except DialogOption.DoesNotExist as e:
         option = DialogHackOption.objects.get(pk = option)
-        return hacking(request, option.node_to.map_in.short_name)
+        return hacking(request, option.node_to)
     

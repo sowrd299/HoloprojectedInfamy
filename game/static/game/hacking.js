@@ -44,6 +44,28 @@ function traverseLink(link_element) {
 
 
 /*
+Moves the player node to the specified node
+*/
+function goToNode(targetNode) {
+    playerNode = targetNode;
+
+    // update visibility
+    playerNode.linked_nodes.forEach(node => {
+        setVisible(node, true);
+    });
+
+    playerNode.linked_links.forEach(link=> {
+        setVisible(link, true);
+    });
+
+    // give tools
+    playerNode.pickups.forEach(tool => {
+        giveTool(tool);
+    });
+}
+
+
+/*
 Is legal target
 */
 function isLegalTarget(node){
@@ -199,22 +221,7 @@ function hack(tool) {
     
     // move the player
     if(success){
-        playerNode = targetNode;
-
-        // update visibility
-        playerNode.linked_nodes.forEach(node => {
-            setVisible(node, true);
-        });
-
-        playerNode.linked_links.forEach(link=> {
-            setVisible(link, true);
-        });
-
-        // give tools
-        playerNode.pickups.forEach(tool => {
-            giveTool(tool);
-        });
-
+        goToNode(targetNode);
     }else{
         boxAlert("Your tool has failed to hack successfully; you have not progressed through the Net; time has passed, and the phantoms may become aware of your failure.");
     }
@@ -267,6 +274,7 @@ function setup() {
 
     });
 
+    goToNode(nodes[starting_node]);
     targetNode = playerNode;
 
 
