@@ -13,3 +13,7 @@
 .option:hover {
     margin-left: 15%;
 }
+
+.content section h3 {
+    margin: 0px 32px;
+}

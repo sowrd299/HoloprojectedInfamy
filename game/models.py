@@ -1,6 +1,8 @@
 from django.db import models
 
 
+# HACKING
+
 class HackingMap(models.Model):
     '''
     An entire hacking encounter
@@ -101,3 +103,52 @@ class HackingToolSpeciality(models.Model):
 
     def __str__(self):
         return "{} vs. {}".format(self.tool, self.node)
+
+
+# DIALOG
+
+
+class DialogNode(models.Model):
+    '''
+    A class for something said to the player in a dialog tree
+    '''
+    short_name = models.CharField(max_length = 64, primary_key = True)
+    title = models.CharField(max_length = 128, blank = True)
+    speaker = models.CharField(max_length = 128, blank = True)
+    text = models.TextField(blank = True)
+
+    def __str__(self):
+        return self.short_name
+
+
+
+class DialogOption(models.Model):
+    '''
+    A class for something the player says or does in a dialog tree
+    '''
+    short_name = models.CharField(max_length = 64, primary_key = True)
+
+    node_from = models.ForeignKey(DialogNode, related_name="options", on_delete = models.CASCADE)
+    node_to = models.ForeignKey(DialogNode, on_delete = models.CASCADE)
+
+    text = models.TextField(blank = True)
+    restriction = models.TextField(blank = True)
+
+    def __str__(self):
+        return "{} ({})".format(self.short_name, self.node_from)
+
+
+class DialogHackOption(models.Model):
+    '''
+    A class to represent a node at which one enters a hack
+    '''
+    short_name = models.CharField(max_length = 64, primary_key = True)
+
+    node_from = models.ForeignKey(DialogNode, related_name="hack_options", on_delete = models.CASCADE)
+    node_to = models.ForeignKey(HackingNode, on_delete = models.CASCADE)
+
+    text = models.TextField(blank = True)
+    restriction = models.TextField(blank = True)
+
+    def __str__(self):
+        return "{} (Hacking)".format(self.node_to)

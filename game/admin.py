@@ -8,3 +8,7 @@ admin.site.register(HackingLink)
 admin.site.register(HackingTool)
 admin.site.register(HackingToolPickup)
 admin.site.register(HackingToolSpeciality)
+
+admin.site.register(DialogNode)
+admin.site.register(DialogOption)
+admin.site.register(DialogHackOption)

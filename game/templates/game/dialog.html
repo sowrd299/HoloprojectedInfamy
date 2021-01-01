@@ -12,12 +12,18 @@
     <section>
         <div class="zoom holoblue">
 
-            <h2>The Streets of Planet Ämbriav / the Tröjav System</h2>
+            {% if node.title %}
+                <h2>{{ node.title }}</h2>
+            {% endif %}
+            {% if node.speaker %}
+                <h2>{{ node.speaker }}: "</h2>
+            {% endif %}
 
-            <p> Ämbriav is a world of bustling comerce and unbridled potential. As the most economically active planet of the
-            Senate/Cïjang Divide, it provides a key crossroads of goods and ideas.</p>
+            <p> {{ node.text }} </p>
 
-            <p> Adventure lies ahead of you. What do you choose to do? </p>
+            {% if node.speaker %}
+                <h3>"</h3>
+            {% endif %}
 
             <!-- corner decal -->
             <svg class="cornerlower cornerright" height="100" width="100">
@@ -31,15 +37,16 @@
 
     <!-- choices -->
     <section>
-        <a class="option zoom holoblue" href="{% url 'game:option' 'Test' %}">
-            <strong>1</strong>
-            <svg height="20" width="20">
-                <g transform="scale(0.2,0.2)" >
-                    {% include 'home/svg/arrow.html' %}
-                </g>
-            </svg>
-            Hack the House Härö remote server
-        </a>
+        {% for option in node.options.all %}
+            {% include 'game/option.html' %}
+        {% endfor %}
+    </section>
+
+    <!-- choices that lead to hacks -->
+    <section>
+        {% for option in node.hack_options.all %}
+            {% include 'game/option.html' %}
+        {% endfor %}
     </section>
 
 {% endblock %}

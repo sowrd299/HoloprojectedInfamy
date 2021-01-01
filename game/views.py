@@ -11,14 +11,17 @@ def home(request):
     '''
     A list of all tasks the play can go do.
     '''
-    return dialog(request)
+    return dialog(request, DialogNode.objects.get(short_name = 'Home'))
 
 
-def dialog(request):
+def dialog(request, node):
     '''
     Renders some in-game dialog
     '''
-    return render(request, 'game/dialog.html')
+    context = {
+        'node' : node
+    }
+    return render(request, 'game/dialog.html', context)
 
 
 def hacking(request, hacking_map):
@@ -54,7 +57,15 @@ def game(request, option):
     '''
     Progresses the player's game in response to the given option
     '''
+
+    # DIALOG
     try:
-        return hacking(request, option)
-    except Http404 as e:
-        return dialog(request)
+        option = DialogOption.objects.get(pk = option)
+        return dialog(request, option.node_to)
+
+
+    # HACKING
+    except DialogOption.DoesNotExist as e:
+        option = DialogHackOption.objects.get(pk = option)
+        return hacking(request, option.node_to.map_in.short_name)
+    
