@@ -152,3 +152,18 @@ class DialogHackOption(models.Model):
 
     def __str__(self):
         return "{} (Hacking)".format(self.node_to)
+
+
+class DialogHackExitOption(models.Model):
+	'''
+	A class to represent the dialog node at which one exits a hack
+	'''
+
+	option_from = models.ForeignKey(DialogHackOption, related_name="exit_options", on_delete = models.CASCADE)
+	node_to = models.ForeignKey(DialogNode, on_delete = models.CASCADE)
+
+	caught = models.BooleanField()
+	restriction = models.TextField(blank = True)
+
+	def __str__(self):
+		return "{} to {}".format(self.option_from, self.node_to)

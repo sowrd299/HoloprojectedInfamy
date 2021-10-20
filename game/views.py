@@ -24,12 +24,13 @@ def dialog(request, node):
     return render(request, 'game/dialog.html', context)
 
 
-def hacking(request, node):
+def hacking(request, option):
     '''
     Renders the provided hacking encounter
     Errors if the page does not exist
     '''
 
+    node = option.node_to
     hacking_map = node.map_in.short_name
     
     nodes = HackingNode.objects.filter(map_in__short_name = hacking_map)
@@ -54,9 +55,17 @@ def hacking(request, node):
 
     # data to avoid jsoning
     context['starting_node'] = node.pk
+    context['option'] = option.pk
 
     # clean up
     return render(request, 'game/hacking.html', context)
+
+
+def hack_exit(request, hack_option):
+	hack_option = DialogHackOption.objects.get(pk = hack_option)
+	for exit_option in hack_option.exit_options.all():
+		# TODO: Make sure its a legal exit
+		return dialog(request, exit_option.node_to)
 
 
 def game(request, option):
@@ -73,5 +82,5 @@ def game(request, option):
     # HACKING
     except DialogOption.DoesNotExist as e:
         option = DialogHackOption.objects.get(pk = option)
-        return hacking(request, option.node_to)
+        return hacking(request, option)
     
