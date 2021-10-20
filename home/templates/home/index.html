@@ -7,10 +7,9 @@
         <title>11 Systems</title>
 
         <!-- load google fonts -->
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@400;700&family=Kelly+Slab&family=Nixie+One&family=Rye&family=Special+Elite&family=UnifrakturMaguntia&display=swap" rel="stylesheet"> 
+		<!-- TODO: FONTS and STYLES WERE MOVED TO ES_THEME -->
+		{% include 'es_theme/links.html' %}
 
-        <link rel="stylesheet" href="{% static 'home/style.css' %}"/>
         <link rel="stylesheet" href="{% static 'home/decor/decor.css' %}"/>
 
         <script src="{% static 'home/utils.js' %}"></script>
@@ -30,23 +29,23 @@
                 <!-- corner decor -->
                 <svg class="cornerupper cornerleft">
                     <g transform="scale(2,0.5)" >
-                        {% include 'home/svg/corner.html' %}
+                        {% include 'es_theme/svg/corner.html' %}
                     </g>
                 </svg>
 
                 <svg class="cornerupper cornerright">
                     <g transform="scale(-2,0.5) translate(-150,0)" >
-                        {% include 'home/svg/corner.html' %}
+                        {% include 'es_theme/svg/corner.html' %}
                     </g>
                 </svg>
 
                 <!-- the actual header stuff -->
                 <h1>The 11 Systems</h1>
                 <h3>Worlds of Houses and their Vices</h3>
-                <img src="{% static 'home/img/MaliitusMoth.png' %}"/>
+                <img src="{% static 'es_theme/img/MaliitusMoth.png' %}"/>
 
                 <svg class="logo" height="100" width="100">
-                    {% include 'home/svg/moon.html' %}
+                    {% include 'es_theme/svg/moon.html' %}
                 </svg>
             </div>
         </header>
@@ -59,7 +58,7 @@
                 <div class="expandbutton holoblue">
                     <svg height="25" width="25">
                         <g transform="scale(0.25,0.25)" >
-                            {% include 'home/svg/star.html' %}
+                            {% include 'es_theme/svg/star.html' %}
                         </g>
                     </svg>
                 </div>
@@ -91,7 +90,7 @@
                     <!-- corner decal -->
                     <svg class="cornerlower cornerright" height="100" width="100">
                         <g transform="scale(-1,-1) translate(-100, -100)" >
-                            {% include 'home/svg/corner.html' %}
+                            {% include 'es_theme/svg/corner.html' %}
                         </g>
                     </svg>
                 </div>
@@ -106,18 +105,18 @@
 
                     <!-- decorations -->
                     <svg class="cornerupper cornerleft" height="100" width="100">
-                        {% include 'home/svg/corner.html' %}
+                        {% include 'es_theme/svg/corner.html' %}
                     </svg>
 
                     <svg class="cornerupper cornerright " height="100" width="100">
                         <g transform="scale(-1,1) translate(-100,0)" >
-                            {% include 'home/svg/corner.html' %}
+                            {% include 'es_theme/svg/corner.html' %}
                         </g>
                     </svg>
 
                     <svg class="cornerlower cornerleft" height="100" width="100">
                         <g transform="scale(1,-1) translate(0,-100)" >
-                            {% include 'home/svg/corner.html' %}
+                            {% include 'es_theme/svg/corner.html' %}
                         </g>
                     </svg>
 

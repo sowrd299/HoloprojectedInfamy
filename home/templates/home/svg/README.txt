@@ -1,0 +1,1 @@
+TODO: All SVG templates have been moved to "es_theme"
