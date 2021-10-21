@@ -123,6 +123,9 @@ function giveTool(tool){
     displayTool(tool_element, tool);
     setHoloColor(tool_element.querySelector("div"), "holored");
     toolbar.appendChild(tool_element);
+
+	// record that the tool was obtained
+	addToolToSubmit(tool);
 }
 
 
@@ -185,6 +188,23 @@ function display() {
 }
 
 
+function initSubmit(){
+	document.getElementById("submit_caught").value = "false";
+	document.getElementById("submit_tools").value = ""
+}
+
+/* Adds a tool to the list of tools that will be submitted */
+function addToolToSubmit(tool){
+	let st = document.getElementById("submit_tools")
+	st.value += (st.value? "," : "") + tool.pk;
+}
+
+/* Submits to the server that the client that the player was caught */
+function addCaughtToSubmit(){
+	document.getElementById("submit_caught").value = "true";
+}
+
+
 /*
 Attempts to advance the game state by running a "hack";
 This is where most game logic is implemented
@@ -230,7 +250,8 @@ function hack(tool) {
     if(enemyNodes.has(playerNode)){
         boxAlert("You have been caught. Your have been forcibly exspelled from the Net, your terminal is being back-traced, and enemy enforcers will be at your location momentarily. We advise you run.",
                 function(){
-                    window.location.href = defeated_url;
+					addCaughtToSubmit();
+					document.submit_form.submit()
                 });
     }
 
@@ -352,6 +373,8 @@ function setup() {
             nodes[linked_nodes[j]].linked_links.add(link_element);
         }
     }
+
+	initSubmit();
 
     // run the display
     display();

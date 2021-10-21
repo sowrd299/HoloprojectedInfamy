@@ -33,7 +33,12 @@
             </svg>
         </div>
         <div class="expanded menu holoblue">
-            <a href="{% url 'game:hack_exit' option %}">Disconnect Hack</a>
+            <form name="submit_form" action="{% url 'game:hack_exit' option %}" method="get">
+				<!-- {% csrf_token %} -->
+				<input type="hidden" id="submit_caught" name="caught" value="false"/>
+				<input type="hidden" id="submit_tools" name="tools" value=""/>
+				<input type="submit" class="menu_link" name="btn_submit" value="Disconnect Hack"/>
+			</form>
         </div>
     </div>
 {% endblock %}

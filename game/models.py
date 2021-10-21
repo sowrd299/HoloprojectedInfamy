@@ -162,7 +162,7 @@ class DialogHackExitOption(models.Model):
 	option_from = models.ForeignKey(DialogHackOption, related_name="exit_options", on_delete = models.CASCADE)
 	node_to = models.ForeignKey(DialogNode, on_delete = models.CASCADE)
 
-	caught = models.BooleanField()
+	caught = models.BooleanField() # TODO: Not in use
 	restriction = models.TextField(blank = True)
 
 	def __str__(self):

@@ -3,9 +3,8 @@ from django.shortcuts import render
 from django.core.serializers import serialize
 from django.db.models import Count
 from .models import *
+from .utils import eval_restriction
 
-
-# Create your views here.
 
 def home(request):
     '''
@@ -64,8 +63,11 @@ def hacking(request, option):
 def hack_exit(request, hack_option):
 	hack_option = DialogHackOption.objects.get(pk = hack_option)
 	for exit_option in hack_option.exit_options.all():
-		# TODO: Make sure its a legal exit
-		return dialog(request, exit_option.node_to)
+		if eval_restriction(exit_option, request.GET):
+			return dialog(request, exit_option.node_to)
+	
+	# TODO: have a better default case?
+	return hacking(hack_option)
 
 
 def game(request, option):
