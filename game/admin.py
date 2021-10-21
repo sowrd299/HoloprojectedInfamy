@@ -10,6 +10,7 @@ admin.site.register(HackingToolPickup)
 admin.site.register(HackingToolSpeciality)
 
 admin.site.register(DialogNode)
+admin.site.register(DialogAutoNode)
 admin.site.register(DialogOption)
 admin.site.register(DialogHackOption)
 admin.site.register(DialogHackExitOption)

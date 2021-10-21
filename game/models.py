@@ -121,6 +121,13 @@ class DialogNode(models.Model):
         return self.short_name
 
 
+class DialogAutoNode(DialogNode):
+	'''
+	A class of Dialog Node that automatically advances without showing anything
+	'''
+	def __str__(self):
+		return DialogNode.__str__(self) + " (Auto)"
+
 
 class DialogOption(models.Model):
     '''

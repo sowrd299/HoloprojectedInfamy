@@ -17,6 +17,14 @@ def dialog(request, node):
     '''
     Renders some in-game dialog
     '''
+
+	# Handle auto-nodes
+    if DialogAutoNode.objects.filter(pk = node.pk).exists():
+        for options in (node.options.all(), node.hack_options.all()):
+            for option in options:
+                return game(request, option.pk)
+			# TODO: Handle hack nodes
+
     context = {
         'node' : node
     }
