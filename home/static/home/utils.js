@@ -22,11 +22,11 @@ function setClass(element, domClass, value) {
 Sets the visibility of the given element to the given value
 Works for DOM elements or Django JSON objects that correspond to DOM elements
 */
-function setVisible(element, visible) {
+function setVisible(element, visible, invisibleClass="hidden") {
     if(!(element instanceof Element)){
         element.is_visible = visible;
     }
-    setClass(element, "hidden", !visible);
+    setClass(element, invisibleClass, !visible);
 }
 
 

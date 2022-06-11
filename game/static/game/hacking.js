@@ -51,11 +51,11 @@ function goToNode(targetNode) {
 
     // update visibility
     playerNode.linked_nodes.forEach(node => {
-        setVisible(node, true);
+        setVisible(node, true, "unseen");
     });
 
     playerNode.linked_links.forEach(link=> {
-        setVisible(link, true);
+        setVisible(link, true, "unseen");
     });
 
     // give tools
@@ -243,7 +243,7 @@ function hack(tool) {
     if(success){
         goToNode(targetNode);
     }else{
-        boxAlert("Your tool has failed to hack successfully; you have not progressed through the Net; time has passed, and the phantoms may become aware of your failure.");
+        boxAlert("Your tool has failed to hack successfully; you have not progressed through the Net; time has passed, and the Watchmen may become aware of your failure.");
     }
 
     // check if the player got caught
@@ -339,7 +339,7 @@ function setup() {
             setVisible(terminals.item(j), false)
         }
 
-        setVisible(node, nodes[node.id].is_visible);
+        setVisible(node, nodes[node.id].is_visible, "unseen");
 
         // enable moving by targeting nodes
         node.onclick = function(event){
@@ -367,7 +367,7 @@ function setup() {
         let linked_nodes = link_element.dataset.nodes.split(" ") ;
         for(let j = 0; j < linked_nodes.length; j++){
             if(!nodes[linked_nodes[j]].is_visible){
-                setVisible(link_element, false);
+                setVisible(link_element, false, "unseen");
             }
 
             nodes[linked_nodes[j]].linked_links.add(link_element);

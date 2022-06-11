@@ -11,8 +11,11 @@ body {
     height: 80vh;
     width: 100%;
     */
+	/* Setting height and width causes bugs with SVG rendering on some browsers */
+	/*
     height: 0;
     width: 0;
+	*/
     transition: left 2s, top 2s;
 }
 
@@ -37,6 +40,26 @@ body {
     position: absolute;
     margin: 0;
     transform: translate(-50%, -50%);
+}
+
+.unseen {
+	opacity: 0.6;
+}
+
+.hackingnode.unseen>div {
+	min-height: 1em;
+}
+
+.unseen h3, .unseen p {
+	display: none;
+}
+
+.unseen .hackingterminal {
+	margin-top: 16px;
+}
+
+.unseen .hackingterminal h3 {
+	display: block;
 }
 
 .hackingnode .holosectiontop {
